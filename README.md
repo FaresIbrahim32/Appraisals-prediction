@@ -1,0 +1,1 @@
+This is an ML model that acts as a  recommendation system that selects the top 3 most comparable properties for a given subject property. Dataset is mostly appraisals from Toronto , Canada  in appraisals.json. Final Model is saved as .pkl file 
