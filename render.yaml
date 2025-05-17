@@ -2,8 +2,5 @@ services:
   - type: web
     name: property-appraisal
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements-py311.txt
     startCommand: gunicorn app:app
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.9.14  # Use a stable, older Python version
