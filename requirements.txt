@@ -1,0 +1,8 @@
+
+flask
+gunicorn
+numpy
+pandas
+scikit-learn
+matplotlib 
+seaborn # or tensorflow, pytorch, etc.
