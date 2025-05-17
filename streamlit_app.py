@@ -18,9 +18,9 @@ st.set_page_config(
 def load_models():
     try:
         # Check if models exist locally
-        if os.path.exists("models/property_comp_model.pkl") and os.path.exists("models/scaler.pkl"):
-            knn_model = joblib.load("models/property_comp_model.pkl")
-            scaler = joblib.load("models/property_comp_model.pkl")
+        if os.path.exists("model/property_comp_model.pkl") and os.path.exists("model/scaler.pkl"):
+            knn_model = joblib.load("model/property_comp_model.pkl")
+            scaler = joblib.load("model/property_comp_model.pkl")
             potential_comps = pd.read_csv("data/potential_comps.csv")
             return knn_model, scaler, potential_comps
         else:
