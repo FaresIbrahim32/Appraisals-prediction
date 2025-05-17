@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Find Comparable Properties{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Find Comparable Properties</h1>
+    
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-info">
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ url_for('find_comps') }}" method="post">
+                <div class="form-group">
+                    <label for="structure_type">Property Type:</label>
+                    <select class="form-control" id="structure_type" name="structure_type" required>
+                        <option value="">Select Property Type</option>
+                        <option value="Detached">Detached</option>
+                        <option value="Townhouse">Townhouse</option>
+                        <option value="Condo">Condo</option>
+                        <option value="Semi-Detached">Semi-Detached</option>
+                        <option value="Duplex">Duplex</option>
+                        <option value="Apartment">Apartment</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="gla">Gross Living Area (sq ft):</label>
+                    <input type="number" class="form-control" id="gla" name="gla" min="500" max="10000" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="year_built">Year Built:</label>
+                    <input type="number" class="form-control" id="year_built" name="year_built" min="1800" max="2025" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="num_beds">Number of Bedrooms:</label>
+                    <select class="form-control" id="num_beds" name="num_beds" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5+</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="num_baths">Bathrooms:</label>
+                    <div class="row">
+                        <div class="col">
+                            <label for="full_baths">Full Baths:</label>
+                            <select class="form-control" id="full_baths" name="full_baths">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5+</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="half_baths">Half Baths:</label>
+                            <select class="form-control" id="half_baths" name="half_baths">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="hidden" id="num_baths" name="num_baths">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Property Address (Optional):</label>
+                    <input type="text" class="form-control" id="address" name="address">
+                    <small class="form-text text-muted">We'll use this to find nearby properties.</small>
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Find Comparable Properties</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Combine full and half baths into the format your model expects
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const fullBaths = document.getElementById('full_baths').value;
+        const halfBaths = document.getElementById('half_baths').value;
+        document.getElementById('num_baths').value = `${fullBaths}:${halfBaths}`;
+        
+        // If you want to add geocoding, you would add it here
+        // This would populate the hidden latitude and longitude fields
+    });
+</script>
+{% endblock %}
